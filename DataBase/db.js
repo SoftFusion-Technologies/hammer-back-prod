@@ -13,7 +13,10 @@ import {
 const db = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
   host: DB_HOST, // y el servidor local
   dialect: 'mysql',
-  define: { freezeTableName: true } // esto previene que se pruralizen los nombres de la tabla ya que antes de esta linea la tabla clientesFORM nos las mostraba con la s al final
+  define: { freezeTableName: true },
+  dialectOptions: {
+    connectTimeout: 60000 // Tiempo de espera en milisegundos (60 segundos)
+  }
 });
 
 

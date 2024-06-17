@@ -6,14 +6,22 @@ import {
     DB_HOST,
     DB_NAME,
     DB_PASSWORD,
-    DB_USER
+    DB_USER,
+    DB_PORT
 } from './config.js'
 
 // para realizar la conexion de forma muy sensilla es poner los parametros dentro de la instancia
 const db = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
-  host: DB_HOST, // y el servidor local
+  host: DB_HOST,
+  port: DB_PORT, // Agrega el puerto a la configuración
   dialect: 'mysql',
   define: { freezeTableName: true },
+  pool: {
+    max: 5,
+    min: 0,
+    acquire: 30000,
+    idle: 10000
+  },
   dialectOptions: {
     connectTimeout: 60000 // Tiempo de espera en milisegundos (60 segundos)
   }
